@@ -22,8 +22,8 @@
      zurück auf die Startseite navigiert.
 
      Ablauf: Icon-Blöcke gestaffelt (0,95s) → Icon rutscht links,
-     Wort blendet ein (0,6s) → kurze Pause (0,35s) → Kreis öffnet
-     sich (0,8s). */
+     Wort blendet ein (0,6s) → kurze Pause (0,35s) → Kachelraster
+     löst sich wellenartig vom Logo nach außen auf (≈1s). */
   const preloader = document.getElementById('preloader');
   if (preloader) {
     const seen = sessionStorage.getItem('resultech-intro-seen');
@@ -32,11 +32,28 @@
     } else {
       sessionStorage.setItem('resultech-intro-seen', '1');
 
+      /* Kacheln erzeugen: --d steigt mit dem Abstand von der Mitte,
+         dadurch läuft die Auflösung als Welle vom Logo nach außen. */
+      const tilesWrap = preloader.querySelector('.preloader__tiles');
+      const COLS = 10, ROWS = 6, SPREAD = 0.5;
+      const cx = (COLS - 1) / 2, cy = (ROWS - 1) / 2;
+      const maxDist = Math.hypot(cx, cy);
+      const frag = document.createDocumentFragment();
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          const tile = document.createElement('i');
+          const dist = Math.hypot(c - cx, r - cy) / maxDist;
+          tile.style.setProperty('--d', (dist * SPREAD).toFixed(3) + 's');
+          frag.appendChild(tile);
+        }
+      }
+      tilesWrap.appendChild(frag);
+
       const BLOCKS   = 950;                 // vier Icon-Blöcke fertig gestaffelt
       const WORD_DUR = 600;                 // Icon rutscht, Wort blendet ein
       const HOLD     = 350;                 // komplettes Lockup steht kurz
       const OUT_AT   = BLOCKS + WORD_DUR + HOLD;
-      const DONE_AT  = OUT_AT + 800;
+      const DONE_AT  = OUT_AT + (SPREAD * 1000) + 550;
 
       requestAnimationFrame(() => requestAnimationFrame(() => {
         preloader.classList.add('is-blocks');

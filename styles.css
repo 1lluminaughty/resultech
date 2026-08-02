@@ -1422,23 +1422,36 @@ a{ color:inherit; text-decoration:none; }
    PRELOADER — Logo-Intro beim ersten Aufruf der Startseite.
    Ablauf: die vier Icon-Blöcke setzen sich gestaffelt zusammen
    (zentriert) → das Icon rutscht nach links, der Schriftzug
-   blendet daneben ein → kurze Pause → ein Kreis öffnet sich von
-   der Mitte aus und gibt die fertig geladene Seite frei. Einmal
-   pro Sitzung, entfällt bei prefers-reduced-motion.
+   blendet daneben ein → kurze Pause → ein Kachelraster löst sich
+   wellenartig vom Logo nach außen auf und gibt die fertig
+   geladene Seite frei. Einmal pro Sitzung, entfällt bei
+   prefers-reduced-motion.
    ============================================================ */
-
-@property --hole{ syntax:'<percentage>'; inherits:false; initial-value:0%; }
 
 .preloader{
   position:fixed; inset:0; z-index:10000;
   background:var(--paper);
   display:grid; place-items:center;
-  /* Chromium maskiert Verläufe standardmäßig nach Leuchtdichte:
-     Weiß = sichtbar, Schwarz/transparent = ausgeblendet — nicht
-     nach Alphakanal. Deshalb Weiß für den sichtbaren Bereich. */
-  -webkit-mask-image:radial-gradient(circle at 50% 50%, transparent var(--hole), #fff calc(var(--hole) + 1.5%));
-          mask-image:radial-gradient(circle at 50% 50%, transparent var(--hole), #fff calc(var(--hole) + 1.5%));
-  transition:--hole .8s cubic-bezier(.65,0,.35,1);
+}
+
+/* Kachelraster — deckt die Seite wie der Preloader-Hintergrund ab,
+   damit beim Auflösen kein harter Farbsprung entsteht. Jede Kachel
+   bekommt von main.js ein --d (Verzögerung nach Abstand von der
+   Bildschirmmitte), dadurch läuft die Auflösung als Welle vom Logo
+   nach außen statt als einzelner Kreis — kein Masken-Verlauf mehr,
+   der als heller Fleck sichtbar wäre, bevor die Auflösung beginnt. */
+.preloader__tiles{
+  position:absolute; inset:0; z-index:0;
+  display:grid; grid-template-columns:repeat(10,1fr); grid-template-rows:repeat(6,1fr);
+}
+.preloader__tiles i{
+  background:var(--paper);
+  transform-origin:center;
+  transition:transform .5s cubic-bezier(.65,0,.35,1) var(--d,0s),
+             opacity .5s cubic-bezier(.65,0,.35,1) var(--d,0s);
+}
+.preloader.is-out .preloader__tiles i{
+  opacity:0; transform:scale(.22) rotate(8deg);
 }
 
 /* Icon + Schriftzug als getrennte Flex-Kinder in einer zentrierten
@@ -1447,9 +1460,12 @@ a{ color:inherit; text-decoration:none; }
    verschiebt sich das Icon durch das Nachzentrieren von selbst
    nach links — ganz ohne berechnete Transforms. */
 .preloader__mark{
+  position:relative; z-index:1;
   --mh:clamp(40px,5.6vw,56px);
   display:flex; align-items:center; justify-content:center;
+  transition:opacity .4s ease, transform .4s ease;
 }
+.preloader.is-out .preloader__mark{ opacity:0; transform:scale(1.06); }
 .preloader__icon{
   display:block; flex:0 0 auto;
   height:var(--mh); width:calc(var(--mh) * 190.08 / 252.07);
@@ -1481,7 +1497,6 @@ a{ color:inherit; text-decoration:none; }
 .preloader__icon rect:nth-child(4){ transition-delay:.42s; }
 .preloader.is-blocks .preloader__icon rect{ opacity:1; transform:scale(1); }
 
-.preloader.is-out{ --hole:78%; }
 .preloader.is-done{ display:none; }
 
 @media (prefers-reduced-motion:reduce){
