@@ -202,12 +202,10 @@ a{ color:inherit; text-decoration:none; }
   height:76px;
 }
 
-/* Logo */
-.logo{ display:flex; align-items:center; gap:.55em; margin-right:auto; }
-.logo__mark{ width:26px; height:26px; color:var(--ink); flex:0 0 auto; }
-.logo__word{
-  font-size:1.24rem; font-weight:700; letter-spacing:-.038em; color:var(--ink);
-}
+/* Logo — offizielles Lockup-SVG (Icon + Wortmarke in einem) */
+.logo{ display:flex; align-items:center; margin-right:auto; }
+.logo__lockup{ display:flex; height:22px; color:var(--ink); flex:0 0 auto; }
+.logo__lockup svg{ display:block; height:100%; width:auto; }
 
 .nav__links{ display:flex; gap:2rem; font-size:.92rem; font-weight:500; color:var(--ink-2); }
 .nav__links a{ position:relative; padding-block:.4em; }
@@ -336,7 +334,9 @@ a{ color:inherit; text-decoration:none; }
   background:linear-gradient(148deg,#F4F5F7 0%,#DEE1E5 40%,#EBEDF0 62%,#CFD3D9 100%);
   box-shadow:inset 0 0 0 1px rgba(16,18,21,.12);
 }
-.lid__logo{ width:11%; color:rgba(16,18,21,.19); }
+/* Icon ist jetzt hochkant (190×252) statt quadratisch — schmaler,
+   damit die Höhe auf dem Deckel visuell gleich bleibt. */
+.lid__logo{ width:8.5%; color:rgba(16,18,21,.19); }
 
 /* Innenseite — Aluminiumrahmen + Display */
 .lid__face{
