@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Power BI oder Fabric — wann sich der Wechsel rechnet | resultech</title>
+<meta name="description" content="Fabric ist nicht das neue Power BI. Eine ehrliche Rechnung, ab wann der Umstieg Geld spart — und drei Fälle, in denen er es nicht tut.">
+<meta name="theme-color" content="#FBFBF9">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body style="--a:var(--fabric)">
+
+<div class="grain" aria-hidden="true"></div>
+<div class="progress" data-progress aria-hidden="true"></div>
+
+<header class="nav stuck" id="nav">
+  <div class="nav__inner">
+    <a class="logo" href="../index.html" aria-label="resultech — Startseite">
+      <span class="logo__mark" aria-hidden="true">
+        <svg viewBox="0 0 100 100" fill="currentColor">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M26 0h48c14.36 0 26 11.64 26 26v48c0 14.36-11.64 26-26 26H26C11.64 100 0 88.36 0 74V26C0 11.64 11.64 0 26 0ZM24 21h27a3 3 0 0 1 3 3v19a3 3 0 0 1 -3 3h-27a3 3 0 0 1 -3 -3v-19a3 3 0 0 1 3 -3ZM65 21h11a3 3 0 0 1 3 3v11a3 3 0 0 1 -3 3h-11a3 3 0 0 1 -3 -3v-11a3 3 0 0 1 3 -3ZM48 54h27a3 3 0 0 1 3 3v19a3 3 0 0 1 -3 3h-27a3 3 0 0 1 -3 -3v-19a3 3 0 0 1 3 -3Z"/>
+        </svg>
+      </span>
+      <span class="logo__word">resultech</span>
+    </a>
+    <nav class="nav__links" aria-label="Hauptnavigation">
+      <a href="../index.html#showcase">Plattform</a>
+      <a href="../index.html#leistungen">Leistungen</a>
+      <a href="../index.html#vorgehen">Vorgehen</a>
+      <a href="index.html">Blog</a>
+    </nav>
+    <a class="btn btn--sm" href="../index.html#kontakt">Erstgespräch<span class="btn__arrow" aria-hidden="true">→</span></a>
+  </div>
+</header>
+
+<main>
+<article class="article">
+
+  <header class="article__head">
+    <div class="wrap">
+      <p class="article__cat">Microsoft Fabric</p>
+      <h1>Power BI oder Fabric — wann sich der Wechsel <em>rechnet.</em></h1>
+      <p class="article__lede">
+        Fabric ist nicht das neue Power BI, und eine F-Kapazität ist keine größere
+        Pro-Lizenz. Wer den Umstieg als Lizenzthema behandelt, zahlt am Ende mehr und
+        hat dieselben Berichte. Eine Rechnung, die vor der Entscheidung hilft.
+      </p>
+      <p class="article__meta">
+        <span><time datetime="2026-07-14">14. Juli 2026</time></span>
+        <span>9 Minuten</span>
+        <span>Aus der Praxis</span>
+      </p>
+    </div>
+  </header>
+
+  <div class="wrap">
+    <div class="prose">
+
+      <p>
+        Die Frage kommt inzwischen in fast jedem Erstgespräch, und sie kommt meistens in
+        derselben Form: „Wir haben gehört, wir sollen auf Fabric wechseln — was kostet
+        das?" Dahinter steckt die Annahme, Fabric sei die nächste Version von Power BI.
+        Ist es nicht. Power BI ist ein Teil von Fabric, und zwar der Teil, den Sie schon
+        haben.
+      </p>
+
+      <p>
+        Der Unterschied ist nicht kosmetisch. Bei Power BI kaufen Sie Lizenzen
+        <strong>pro Person</strong>. Bei Fabric kaufen Sie Rechenleistung
+        <strong>pro Stunde</strong> — eine Kapazität, die alle Arbeitslasten
+        gemeinsam nutzen: Data Pipelines, Notebooks, Warehouse, Lakehouse und eben auch
+        die Berichte. Das ändert die Rechnung grundlegend, und zwar in beide Richtungen.
+      </p>
+
+      <h2>Was Fabric tatsächlich ändert</h2>
+
+      <p>
+        Drei Dinge sind neu, und nur diese drei sind die Diskussion wert:
+      </p>
+
+      <ul>
+        <li>
+          <strong>OneLake.</strong> Ein einziger Speicherort im Delta-Parquet-Format für
+          das ganze Unternehmen. Daten liegen einmal da und werden von mehreren Werkzeugen
+          gelesen, ohne Kopie. Wer heute vier Datenkopien für vier Abteilungen pflegt,
+          bekommt hier den größten Hebel.
+        </li>
+        <li>
+          <strong>Direct Lake.</strong> Berichte lesen direkt aus den Delta-Tabellen —
+          ohne Import, ohne stundenlange Aktualisierung, aber mit der Geschwindigkeit
+          eines Imports. Das ist technisch die interessanteste Neuerung.
+        </li>
+        <li>
+          <strong>Eine Abrechnungseinheit.</strong> Pipelines, Transformation und Berichte
+          zahlen aus demselben Topf. Das ist bequem — und der Grund, warum
+          Kostenkontrolle plötzlich zur Aufgabe wird.
+        </li>
+      </ul>
+
+      <p>
+        Alles andere, was in Präsentationen auftaucht, ist entweder umbenannt
+        (Dataflows, Datamarts) oder es gab es vorher schon in anderer Form.
+      </p>
+
+      <h2>Die Lizenzrechnung</h2>
+
+      <p>
+        Der entscheidende Punkt ist unspektakulär: Ab einer bestimmten Kapazitätsgröße
+        brauchen Menschen, die Berichte nur <em>ansehen</em>, keine eigene
+        Pro-Lizenz mehr. Unterhalb dieser Grenze brauchen sie eine. Daraus ergibt sich
+        ein Break-even, der sich in einer Zeile ausrechnen lässt.
+      </p>
+
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr><th>Ausgangslage</th><th>Sinnvoll</th><th>Weil</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>25 Berichtsnutzer, ein Datenmodell, tägliche Aktualisierung</td>
+              <td>Power BI Pro</td>
+              <td>Lizenzkosten pro Kopf bleiben deutlich unter jeder Kapazität</td>
+            </tr>
+            <tr>
+              <td>80 Nutzer, mehrere Fachbereiche, wachsende Modelle</td>
+              <td>Kleine F-Kapazität <em>zusätzlich</em></td>
+              <td>Rechenlast bündeln, Nutzer weiter über Pro lizenzieren</td>
+            </tr>
+            <tr>
+              <td>Mehrere Hundert Betrachter, wenige Autoren</td>
+              <td>F64 oder größer</td>
+              <td>Betrachter benötigen keine Einzellizenz — hier kippt die Rechnung</td>
+            </tr>
+            <tr>
+              <td>Data Engineering, Notebooks, Streaming gewünscht</td>
+              <td>Fabric, unabhängig von der Nutzerzahl</td>
+              <td>Diese Arbeitslasten gibt es in Power BI Pro nicht</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note">Preisstände ändern sich mehrmals im Jahr — vor der Entscheidung im Lizenzportal nachrechnen.</p>
+
+      <div class="callout">
+        <span class="callout__k">Die Regel in einem Satz</span>
+        <p>
+          Teilen Sie die Monatskosten der Kapazität durch den Preis einer Pro-Lizenz.
+          Liegt Ihre Zahl an Berichtsbetrachtern darüber, bleiben Sie bei Pro. Liegt sie
+          darunter, wird die Kapazität günstiger — und alles, was Sie an Data
+          Engineering zusätzlich machen, ist ab dann inklusive.
+        </p>
+      </div>
+
+      <h2>Drei Fälle, in denen der Wechsel nicht lohnt</h2>
+
+      <ol>
+        <li>
+          <strong>Das Datenmodell ist das Problem, nicht die Plattform.</strong>
+          Wenn Berichte langsam sind, weil vierzehn Tabellen ohne Sternschema
+          zusammengeklebt wurden, wird Fabric das nicht heilen. Es wird die
+          Ineffizienz nur teurer machen, weil sie jetzt Kapazität verbraucht statt
+          Geduld.
+        </li>
+        <li>
+          <strong>Es gibt niemanden, der die Kapazität beobachtet.</strong>
+          Eine Kapazität kann durch ein einziges schlecht geschriebenes Notebook
+          gedrosselt werden — und dann stehen alle Berichte. Ohne benannte
+          Verantwortung für Auslastung und Throttling ist das ein Risiko, kein
+          Fortschritt.
+        </li>
+        <li>
+          <strong>Die eigentliche Aufgabe ist Governance.</strong>
+          Wir sehen regelmäßig Unternehmen, die 300 Arbeitsbereiche und keine
+          Namenskonvention haben. Hier bringt eine neue Plattform nichts außer einer
+          größeren Fläche für dasselbe Chaos.
+        </li>
+      </ol>
+
+      <blockquote>
+        <p>
+          Die meisten Fabric-Projekte, die scheitern, scheitern nicht an Fabric.
+          Sie scheitern daran, dass vorher niemand das Datenmodell aufgeräumt hat.
+        </p>
+      </blockquote>
+
+      <h2>Direct Lake ist das eigentliche Argument</h2>
+
+      <p>
+        Wenn es einen technischen Grund gibt, der den Wechsel unabhängig von der
+        Lizenzrechnung trägt, dann ist es Direct Lake. Klassisch hatten Sie die Wahl
+        zwischen zwei unangenehmen Optionen: <em>Import</em> — schnell im Bericht, aber
+        die Daten sind so alt wie die letzte Aktualisierung. Oder
+        <em>DirectQuery</em> — aktuell, aber jede Interaktion belastet das
+        Quellsystem und fühlt sich träge an.
+      </p>
+
+      <p>
+        Direct Lake nimmt die Geschwindigkeit des einen und die Aktualität des anderen,
+        indem der Bericht die Delta-Dateien im OneLake direkt in den Arbeitsspeicher
+        lädt. Für Produktions- und Logistikkennzahlen, bei denen der Vormittag zählt,
+        ist das der Unterschied zwischen „interessant" und „wird benutzt".
+      </p>
+
+      <p>
+        Zwei Einschränkungen gehören dazu: Direct Lake mag keine wilden
+        Transformationen im Modell — die Arbeit muss vorher in den Gold-Layer wandern.
+        Und wenn eine Abfrage nicht unterstützt wird, fällt sie still auf DirectQuery
+        zurück. Wer das nicht überwacht, wundert sich später über schwankende
+        Antwortzeiten.
+      </p>
+
+      <h2>Wie wir es in Projekten machen</h2>
+
+      <p>
+        Die Reihenfolge ist bei uns fast immer dieselbe, und sie beginnt nicht mit dem
+        Einkauf:
+      </p>
+
+      <ol>
+        <li>
+          <strong>Modell zuerst.</strong> Sternschema, saubere Dimensionen, eine
+          Kennzahl an genau einer Stelle definiert. Das lohnt sich auch dann, wenn Sie
+          nie wechseln.
+        </li>
+        <li>
+          <strong>Einen Anwendungsfall auf F2 oder F4 bauen.</strong> Die kleinen
+          Kapazitäten sind billig genug, um sie als Testumgebung zu behandeln, und
+          lassen sich stundenweise pausieren.
+        </li>
+        <li>
+          <strong>Auslastung messen, dann skalieren.</strong> Nach vier Wochen echter
+          Nutzung wissen Sie, welche Größe Sie brauchen. Vorher ist es Raten.
+        </li>
+        <li>
+          <strong>Erst dann über Lizenzen reden.</strong> Mit gemessenen Zahlen ist das
+          ein Zehnminutengespräch.
+        </li>
+      </ol>
+
+      <hr>
+
+      <h2>Kurz gefasst</h2>
+
+      <p>
+        Wechseln Sie, wenn Sie viele Betrachter und wenige Autoren haben, wenn Sie
+        Datenaufbereitung jenseits von Power Query brauchen, oder wenn Ihre Daten
+        aktueller sein müssen als der letzte nächtliche Ladelauf. Bleiben Sie, wenn Ihr
+        Engpass ein unordentliches Modell, fehlende Governance oder eine offene Frage
+        der Verantwortlichkeit ist. Fabric ist ein gutes Fundament — aber es ersetzt
+        keinen Bauplan.
+      </p>
+
+      <div class="article__foot">
+        <p>Unsicher, in welche Richtung Ihr Fall zeigt? Wir rechnen das in einem Gespräch mit Ihnen durch.</p>
+        <a class="btn btn--primary" href="../index.html#kontakt">Erstgespräch<span class="btn__arrow" aria-hidden="true">→</span></a>
+      </div>
+
+    </div>
+  </div>
+
+</article>
+
+<section class="more">
+  <div class="wrap">
+    <h2>Weiterlesen</h2>
+    <div class="more__grid">
+      <a href="was-kostet-ein-manueller-prozess.html" data-accent="flow">
+        <span class="more__cat">Power Automate</span>
+        <b>Was ein manueller Prozess wirklich kostet</b>
+      </a>
+      <a href="warum-power-apps-leer-stehen.html" data-accent="apps">
+        <span class="more__cat">Power Apps</span>
+        <b>Warum die meisten Power Apps nach drei Monaten leer stehen</b>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__inner">
+    <div class="foot__brand">
+      <a class="logo" href="../index.html">
+        <span class="logo__mark" aria-hidden="true">
+          <svg viewBox="0 0 100 100" fill="currentColor">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M26 0h48c14.36 0 26 11.64 26 26v48c0 14.36-11.64 26-26 26H26C11.64 100 0 88.36 0 74V26C0 11.64 11.64 0 26 0ZM24 21h27a3 3 0 0 1 3 3v19a3 3 0 0 1 -3 3h-27a3 3 0 0 1 -3 -3v-19a3 3 0 0 1 3 -3ZM65 21h11a3 3 0 0 1 3 3v11a3 3 0 0 1 -3 3h-11a3 3 0 0 1 -3 -3v-11a3 3 0 0 1 3 -3ZM48 54h27a3 3 0 0 1 3 3v19a3 3 0 0 1 -3 3h-27a3 3 0 0 1 -3 -3v-19a3 3 0 0 1 3 -3Z"/>
+        </svg>
+        </span>
+        <span class="logo__word">resultech</span>
+      </a>
+      <p>Beratung und Umsetzung auf der Microsoft Power Platform.</p>
+    </div>
+    <nav class="foot__cols" aria-label="Footer">
+      <div>
+        <h4>Leistungen</h4>
+        <a href="../index.html#leistungen">Power BI</a>
+        <a href="../index.html#leistungen">Power Automate</a>
+        <a href="../index.html#leistungen">Power Apps</a>
+        <a href="../index.html#leistungen">Microsoft Fabric</a>
+      </div>
+      <div>
+        <h4>Unternehmen</h4>
+        <a href="../index.html#vorgehen">Vorgehen</a>
+        <a href="../index.html#stimmen">Referenzen</a>
+        <a href="index.html">Blog</a>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <a href="mailto:hallo@resultech.de">hallo@resultech.de</a>
+        <a href="tel:+4900000000">+49 000 000 000</a>
+      </div>
+    </nav>
+  </div>
+  <div class="wrap foot__bar">
+    <span class="mono">© <span data-year>2026</span> resultech</span>
+    <span class="foot__legal">
+      <a href="#">Impressum</a><a href="#">Datenschutz</a>
+    </span>
+  </div>
+</footer>
+
+<script src="../main.js" defer></script>
+</body>
+</html>
