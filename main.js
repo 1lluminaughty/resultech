@@ -19,7 +19,11 @@
      Nur auf der Startseite vorhanden (kein Element auf den
      Blog-Seiten). Läuft einmal pro Tab-Sitzung: sessionStorage
      verhindert eine Wiederholung, wenn man von einer Unterseite
-     zurück auf die Startseite navigiert. */
+     zurück auf die Startseite navigiert.
+
+     Ablauf: Icon-Blöcke gestaffelt (0,95s) → Icon rutscht links,
+     Wort blendet ein (0,6s) → kurze Pause (0,35s) → Kreis öffnet
+     sich (0,8s). */
   const preloader = document.getElementById('preloader');
   if (preloader) {
     const seen = sessionStorage.getItem('resultech-intro-seen');
@@ -27,11 +31,19 @@
       preloader.remove();
     } else {
       sessionStorage.setItem('resultech-intro-seen', '1');
+
+      const BLOCKS   = 950;                 // vier Icon-Blöcke fertig gestaffelt
+      const WORD_DUR = 600;                 // Icon rutscht, Wort blendet ein
+      const HOLD     = 350;                 // komplettes Lockup steht kurz
+      const OUT_AT   = BLOCKS + WORD_DUR + HOLD;
+      const DONE_AT  = OUT_AT + 800;
+
       requestAnimationFrame(() => requestAnimationFrame(() => {
-        preloader.classList.add('is-in');
+        preloader.classList.add('is-blocks');
       }));
-      setTimeout(() => preloader.classList.add('is-out'), 700);
-      setTimeout(() => preloader.classList.add('is-done'), 700 + 850);
+      setTimeout(() => preloader.classList.add('is-word'), BLOCKS);
+      setTimeout(() => preloader.classList.add('is-out'), OUT_AT);
+      setTimeout(() => preloader.classList.add('is-done'), DONE_AT);
     }
   }
 
