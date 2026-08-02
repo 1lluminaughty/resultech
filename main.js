@@ -15,6 +15,26 @@
   const y = document.querySelector('[data-year]');
   if (y) y.textContent = new Date().getFullYear();
 
+  /* ── 0 · Preloader ──────────────────────────────────────────
+     Nur auf der Startseite vorhanden (kein Element auf den
+     Blog-Seiten). Läuft einmal pro Tab-Sitzung: sessionStorage
+     verhindert eine Wiederholung, wenn man von einer Unterseite
+     zurück auf die Startseite navigiert. */
+  const preloader = document.getElementById('preloader');
+  if (preloader) {
+    const seen = sessionStorage.getItem('resultech-intro-seen');
+    if (reduced || seen) {
+      preloader.remove();
+    } else {
+      sessionStorage.setItem('resultech-intro-seen', '1');
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        preloader.classList.add('is-in');
+      }));
+      setTimeout(() => preloader.classList.add('is-out'), 700);
+      setTimeout(() => preloader.classList.add('is-done'), 700 + 850);
+    }
+  }
+
   /* ── 1 · Navigation ─────────────────────────────────────── */
   const nav = document.getElementById('nav');
   const onNav = () => nav.classList.toggle('stuck', scrollY > 24);
