@@ -58,6 +58,11 @@
      180° − 72° = 108°. Erst jenseits von 90° zeigt die Aussenseite
      zum Betrachter — vorher sah man im zugeklappten Zustand das Display. */
   --open:    -108deg;
+
+  /* Icon-zu-Wort-Abstand der Bildmarke, als Anteil der Markenhöhe.
+     Eine Zahl für Nav/Footer-Logo UND Preloader, damit beide optisch
+     exakt gleich wirken. */
+  --logo-gap: .4;
 }
 
 *,*::before,*::after{ box-sizing:border-box; }
@@ -210,8 +215,14 @@ a{ color:inherit; text-decoration:none; }
 
 /* Logo — offizielles Lockup-SVG (Icon + Wortmarke in einem) */
 .logo{ display:flex; align-items:center; margin-right:auto; }
-.logo__lockup{ display:flex; height:22px; color:var(--ink); flex:0 0 auto; }
-.logo__lockup svg{ display:block; height:100%; width:auto; }
+.logo__lockup{
+  --lh:22px;
+  display:flex; align-items:center;
+  height:var(--lh); color:var(--ink); flex:0 0 auto;
+  gap:calc(var(--lh) * var(--logo-gap));
+}
+.logo__icon{ display:block; flex:0 0 auto; height:100%; width:calc(var(--lh) * 190.08 / 252.07); }
+.logo__word{ display:block; flex:0 0 auto; height:100%; width:calc(var(--lh) * 1000 / 252.07); }
 
 .nav__links{ display:flex; gap:2rem; font-size:.92rem; font-weight:500; color:var(--ink-2); }
 .nav__links a{ position:relative; padding-block:.4em; }
@@ -1488,7 +1499,7 @@ a{ color:inherit; text-decoration:none; }
 }
 .preloader.is-word .preloader__word{
   width:calc(var(--mh) * 1000 / 252.07);
-  margin-left:calc(var(--mh) * .32);
+  margin-left:calc(var(--mh) * var(--logo-gap));
   opacity:1;
 }
 
