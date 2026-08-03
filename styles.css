@@ -33,17 +33,21 @@
   /* Schrift */
   --ink:      #101215;
   --ink-2:    #3D4147;
-  --muted:    #6C7178;
-  --muted-2:  #9AA0A7;
+  --muted:    #6B7076;
+  --muted-2:  #697079;
+  /* Die alte, hellere Sekundärstufe. Sie erreicht nur 2,6:1 und ist damit
+     kein zulässiger Textwert mehr — sie bleibt ausschließlich für die
+     App-Mockups, die eine verkleinerte Screenshot-Optik nachstellen. */
+  --muted-3:  #9AA0A7;
 
   --line:     rgba(16,18,21,.09);
   --line-2:   rgba(16,18,21,.17);
 
   /* Produktfarben — kontraststarke Variante für Text und Linien … */
-  --bi:       #B08704;
+  --bi:       #8B6B03;
   --flow:     #2563EB;
   --apps:     #9333EA;
-  --fabric:   #0D8F76;
+  --fabric:   #0B7E68;
   /* … und die reinen Markenwerte für Flächen und Diagramme */
   --bi-pure:     #F2C811;
   --flow-pure:   #3E7BFA;
@@ -147,7 +151,6 @@ a{ color:inherit; text-decoration:none; }
 .eyebrow__dot{
   width:5px; height:5px; border-radius:50%; background:var(--ink);
   box-shadow:0 0 0 4px rgba(16,18,21,.07);
-  animation:pulse 3.4s var(--ease) infinite;
 }
 @keyframes pulse{ 0%,100%{opacity:1} 50%{opacity:.3} }
 
@@ -288,7 +291,7 @@ a{ color:inherit; text-decoration:none; }
 .hero__proof{ margin-top:5rem; }
 .hero__proof-label{
   display:block; margin-bottom:.9rem;
-  font-family:var(--mono); font-size:.68rem; letter-spacing:.14em;
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.14em;
   text-transform:uppercase; color:var(--muted-2);
 }
 .hero__logos{
@@ -301,7 +304,7 @@ a{ color:inherit; text-decoration:none; }
 .hero__scroll{
   position:absolute; left:50%; bottom:2.2rem; translate:-50% 0;
   display:flex; flex-direction:column; align-items:center; gap:.7rem;
-  font-size:.62rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted-2);
+  font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--muted-2);
 }
 .hero__scroll-line{
   width:1px; height:52px;
@@ -535,7 +538,7 @@ a{ color:inherit; text-decoration:none; }
   transition:background .4s;
 }
 .ticks button:hover{ background:rgba(255,255,255,.72); }
-.ticks__n{ font-size:.66rem; color:var(--muted-2); transition:color .4s; }
+.ticks__n{ font-size:.7rem; color:var(--muted-2); transition:color .4s; }
 .ticks__t{ font-size:.98rem; font-weight:600; color:var(--ink-2); transition:color .4s; }
 .ticks__d{ font-size:.78rem; color:var(--muted); }
 .ticks__bar{
@@ -550,6 +553,10 @@ a{ color:inherit; text-decoration:none; }
 
 /* ══════════════════════ APP-MOCKS IM DISPLAY ══════════════════════ */
 .app{
+  /* Die Mockups stellen einen verkleinerten Screenshot dar, keine bedienbare
+     Oberfläche. Sie behalten deshalb die hellere Sekundärstufe — die
+     AA-Regeln der echten Seite gelten hier bewusst nicht. */
+  --muted-2:var(--muted-3);
   position:absolute; inset:0;
   display:flex; flex-direction:column;
   background:#F6F7F9;
@@ -957,18 +964,12 @@ a{ color:inherit; text-decoration:none; }
 .svc[data-accent="flow"]{   --a:var(--flow);   --a-pure:var(--flow-pure); }
 .svc[data-accent="apps"]{   --a:var(--apps);   --a-pure:var(--apps-pure); }
 .svc[data-accent="fabric"]{ --a:var(--fabric); --a-pure:var(--fabric-pure); }
-.svc::before{                     /* Farbe erscheint beim Hover */
-  content:''; position:absolute; inset:0 auto 0 0; width:3px; z-index:-1;
-  background:var(--a); transform:scaleY(0); transform-origin:top;
-  transition:transform .6s var(--ease);
-}
 .svc::after{
   content:''; position:absolute; inset:auto auto -40% -20%; width:70%; aspect-ratio:1; z-index:-1;
   background:radial-gradient(circle, color-mix(in srgb,var(--a-pure) 22%, transparent), transparent 68%);
   opacity:0; transition:opacity .7s var(--ease);
 }
 .svc:hover{ transform:translateY(-4px); box-shadow:var(--sh-2); }
-.svc:hover::before{ transform:scaleY(1); }
 .svc:hover::after{ opacity:1; }
 
 .svc__num{ font-size:.72rem; color:var(--muted-2); transition:color .5s; }
@@ -1081,9 +1082,9 @@ a{ color:inherit; text-decoration:none; }
 }
 .foot__brand p{ margin:1.2rem 0 0; max-width:30ch; color:var(--muted); font-size:.9rem; }
 .foot__cols{ display:grid; grid-template-columns:repeat(3,1fr); gap:2rem; }
-.foot__cols h4{
+.foot__cols h3{
   margin:0 0 1.1rem;
-  font-family:var(--mono); font-size:.68rem; font-weight:400;
+  font-family:var(--mono); font-size:.72rem; font-weight:400;
   letter-spacing:.14em; text-transform:uppercase; color:var(--muted-2);
 }
 .foot__cols div{ display:flex; flex-direction:column; gap:.6rem; }
@@ -1197,17 +1198,11 @@ a{ color:inherit; text-decoration:none; }
   border-radius:var(--r-3); box-shadow:var(--sh-1);
   transition:transform .5s var(--ease), box-shadow .5s var(--ease);
 }
-.post > a::before{
-  content:''; position:absolute; inset:0 auto 0 0; width:3px; z-index:-1;
-  background:var(--a); transform:scaleY(0); transform-origin:top;
-  transition:transform .55s var(--ease);
-}
 .post > a:hover{ transform:translateY(-4px); box-shadow:var(--sh-2); }
-.post > a:hover::before{ transform:scaleY(1); }
 
 .post__meta{ display:flex; flex-direction:column; gap:.45rem; padding-top:.3rem; }
 .post__cat{
-  font-family:var(--mono); font-size:.68rem; letter-spacing:.12em;
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.12em;
   text-transform:uppercase; color:var(--a);
 }
 .post__date{ font-family:var(--mono); font-size:.7rem; color:var(--muted-2); }
@@ -1220,7 +1215,7 @@ a{ color:inherit; text-decoration:none; }
 .post__lede{ margin:0; max-width:58ch; color:var(--muted); font-size:.98rem; }
 .post__read{
   display:inline-block; margin-top:1rem;
-  font-family:var(--mono); font-size:.68rem; letter-spacing:.08em;
+  font-family:var(--mono); font-size:.72rem; letter-spacing:.08em;
   text-transform:uppercase; color:var(--muted-2);
 }
 .post__arrow{
@@ -1324,15 +1319,16 @@ a{ color:inherit; text-decoration:none; }
 
 /* Merksatz-Kasten */
 .callout{
+  /* Akzent trägt das farbige Kicker-Label, nicht mehr eine linke Kante. */
   margin:2.6em 0 0; padding:1.5rem 1.6rem;
-  background:var(--card); border:1px solid var(--line);
-  border-left:3px solid var(--a,var(--ink));
-  border-radius:0 var(--r-2) var(--r-2) 0;
+  background:color-mix(in srgb, var(--a,var(--ink)) 4%, var(--card));
+  border:1px solid color-mix(in srgb, var(--a,var(--ink)) 18%, var(--line));
+  border-radius:var(--r-2);
   box-shadow:var(--sh-1);
 }
 .callout__k{
   display:block; margin-bottom:.6rem;
-  font-family:var(--mono); font-size:.66rem; letter-spacing:.12em;
+  font-family:var(--mono); font-size:.7rem; letter-spacing:.12em;
   text-transform:uppercase; color:var(--a,var(--muted));
 }
 .callout p{ margin:0; font-size:1.02rem; }
@@ -1342,7 +1338,7 @@ a{ color:inherit; text-decoration:none; }
 .prose table{ width:100%; min-width:32rem; border-collapse:collapse; font-size:.94rem; }
 .prose th, .prose td{ padding:.85rem .9rem; text-align:left; border-bottom:1px solid var(--line); }
 .prose th{
-  font-family:var(--mono); font-size:.68rem; font-weight:400;
+  font-family:var(--mono); font-size:.72rem; font-weight:400;
   letter-spacing:.1em; text-transform:uppercase; color:var(--muted);
   border-bottom-color:var(--line-2);
 }
@@ -1375,7 +1371,7 @@ a{ color:inherit; text-decoration:none; }
 .more__grid a:hover{ transform:translateY(-3px); box-shadow:var(--sh-2); }
 .more__cat{
   display:block; margin-bottom:.7rem;
-  font-family:var(--mono); font-size:.66rem; letter-spacing:.12em;
+  font-family:var(--mono); font-size:.7rem; letter-spacing:.12em;
   text-transform:uppercase; color:var(--muted);
 }
 .more__grid a[data-accent="bi"] .more__cat{     color:var(--bi); }
@@ -1417,7 +1413,7 @@ a{ color:inherit; text-decoration:none; }
 .jcard:hover{ transform:translateY(-4px); box-shadow:var(--sh-2); }
 .jcard:hover::after{ opacity:1; }
 .jcard__cat{
-  font-family:var(--mono); font-size:.66rem; letter-spacing:.12em;
+  font-family:var(--mono); font-size:.7rem; letter-spacing:.12em;
   text-transform:uppercase; color:var(--a);
 }
 .jcard__title{
@@ -1429,7 +1425,7 @@ a{ color:inherit; text-decoration:none; }
   margin-top:auto; padding-top:1.2rem;
   display:flex; align-items:center; justify-content:space-between; gap:1rem;
   border-top:1px solid var(--line);
-  font-family:var(--mono); font-size:.66rem; letter-spacing:.06em;
+  font-family:var(--mono); font-size:.7rem; letter-spacing:.06em;
   text-transform:uppercase; color:var(--muted-2);
 }
 .jcard__foot span:last-child{ transition:transform .4s var(--ease); }
