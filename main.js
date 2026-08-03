@@ -22,44 +22,61 @@
      zurück auf die Startseite navigiert.
 
      Ablauf: Icon-Blöcke gestaffelt (0,95s) → Icon rutscht links,
-     Wort blendet ein (0,6s) → kurze Pause (0,35s) → Kachelraster
-     löst sich wellenartig vom Logo nach außen auf (≈1s). */
+     Wort blendet ein (0,6s) → kurze Pause (0,35s) → die fertige
+     Marke schrumpft und wandert exakt auf die gemessene Position
+     des echten Nav-Logos (FLIP-Technik, 0,65s) → sobald sie dort
+     „landet", blendet der Hintergrund aus (0,3s) und ruft
+     revealHero() auf, damit die Hero-Sektion genau in diesem
+     Moment einkaskadiert statt schon vorher unsichtbar hinter dem
+     Preloader fertig zu sein. revealHero wird weiter unten in
+     Abschnitt 2 gesetzt. */
   const preloader = document.getElementById('preloader');
+  let preloaderActive = false;
+  let revealHero = null;
+
   if (preloader) {
     const seen = sessionStorage.getItem('resultech-intro-seen');
     if (reduced || seen) {
       preloader.remove();
     } else {
+      preloaderActive = true;
       sessionStorage.setItem('resultech-intro-seen', '1');
-
-      /* Kacheln erzeugen: --d steigt mit dem Abstand von der Mitte,
-         dadurch läuft die Auflösung als Welle vom Logo nach außen. */
-      const tilesWrap = preloader.querySelector('.preloader__tiles');
-      const COLS = 10, ROWS = 6, SPREAD = 0.5;
-      const cx = (COLS - 1) / 2, cy = (ROWS - 1) / 2;
-      const maxDist = Math.hypot(cx, cy);
-      const frag = document.createDocumentFragment();
-      for (let r = 0; r < ROWS; r++) {
-        for (let c = 0; c < COLS; c++) {
-          const tile = document.createElement('i');
-          const dist = Math.hypot(c - cx, r - cy) / maxDist;
-          tile.style.setProperty('--d', (dist * SPREAD).toFixed(3) + 's');
-          frag.appendChild(tile);
-        }
-      }
-      tilesWrap.appendChild(frag);
 
       const BLOCKS   = 950;                 // vier Icon-Blöcke fertig gestaffelt
       const WORD_DUR = 600;                 // Icon rutscht, Wort blendet ein
       const HOLD     = 350;                 // komplettes Lockup steht kurz
-      const OUT_AT   = BLOCKS + WORD_DUR + HOLD;
-      const DONE_AT  = OUT_AT + (SPREAD * 1000) + 550;
+      const LAND_AT  = BLOCKS + WORD_DUR + HOLD;
+      const LAND_DUR = 650;                 // Marke wandert zum Nav-Logo
+      const OUT_AT   = LAND_AT + LAND_DUR;
+      const OUT_DUR  = 300;                 // Hintergrund blendet aus
+      const DONE_AT  = OUT_AT + OUT_DUR + 100;
 
       requestAnimationFrame(() => requestAnimationFrame(() => {
         preloader.classList.add('is-blocks');
       }));
       setTimeout(() => preloader.classList.add('is-word'), BLOCKS);
-      setTimeout(() => preloader.classList.add('is-out'), OUT_AT);
+
+      setTimeout(() => {
+        const mark = preloader.querySelector('.preloader__mark');
+        const navMark = document.querySelector('.nav .logo__lockup');
+        if (mark && navMark) {
+          const from = mark.getBoundingClientRect();
+          const to = navMark.getBoundingClientRect();
+          const scale = to.height / from.height;
+          const tx = (to.left + to.width / 2) - (from.left + from.width / 2);
+          const ty = (to.top + to.height / 2) - (from.top + from.height / 2);
+          mark.style.setProperty('--tx', tx.toFixed(2) + 'px');
+          mark.style.setProperty('--ty', ty.toFixed(2) + 'px');
+          mark.style.setProperty('--ts', scale.toFixed(4));
+        }
+        preloader.classList.add('is-land');
+      }, LAND_AT);
+
+      setTimeout(() => {
+        preloader.classList.add('is-out');
+        if (revealHero) revealHero();
+      }, OUT_AT);
+
       setTimeout(() => preloader.classList.add('is-done'), DONE_AT);
     }
   }
@@ -94,7 +111,9 @@
   }
 
   /* ── 2 · Reveal ─────────────────────────────────────────── */
-  const targets = document.querySelectorAll('.reveal');
+  const targets    = document.querySelectorAll('.reveal');
+  const heroTargets = document.querySelectorAll('.hero-in');
+
   if (reduced || !('IntersectionObserver' in window)) {
     targets.forEach(el => el.classList.add('in'));
   } else {
@@ -105,7 +124,18 @@
         obs.unobserve(e.target);
       });
     }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
-    targets.forEach(el => io.observe(el));
+
+    /* Hero-Elemente laufen nur dann NICHT über den normalen Scroll-
+       Reveal, wenn der Preloader gerade aktiv ist — dann übernimmt
+       revealHero() den Auslöser, synchron zum Logo-Handoff. */
+    targets.forEach(el => {
+      if (preloaderActive && el.classList.contains('hero-in')) return;
+      io.observe(el);
+    });
+
+    if (preloaderActive) {
+      revealHero = () => heroTargets.forEach(el => el.classList.add('in'));
+    }
   }
 
   /* ── 3 · Showcase ───────────────────────────────────────── */
