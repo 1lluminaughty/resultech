@@ -4,6 +4,25 @@
    Farbe erscheint nur dort, wo ein Produkt gemeint ist.
    ============================================================ */
 
+/* Schriften lokal statt von fonts.googleapis.com — vermeidet die
+   Übertragung von Besucher-IPs an Google beim Seitenaufruf (siehe
+   LG München I, Urteil v. 20.01.2022, Az. 3 O 17493/20). Nur der
+   lateinische Zeichensatz (inkl. äöüß), da die Seite rein deutsch/
+   englisch ist — deshalb nur 3 Dateien statt der vollen Google-
+   Fonts-Auslieferung mit Kyrillisch/Griechisch/Vietnamesisch. */
+@font-face{
+  font-family:'Manrope'; font-style:normal; font-weight:400 800; font-display:swap;
+  src:url('fonts/manrope-variable.woff2') format('woff2');
+}
+@font-face{
+  font-family:'IBM Plex Mono'; font-style:normal; font-weight:400; font-display:swap;
+  src:url('fonts/ibm-plex-mono-400.woff2') format('woff2');
+}
+@font-face{
+  font-family:'IBM Plex Mono'; font-style:normal; font-weight:500; font-display:swap;
+  src:url('fonts/ibm-plex-mono-500.woff2') format('woff2');
+}
+
 :root{
   /* Flächen — warmes Off-White, Karten in Reinweiß */
   --paper:    #FBFBF9;
