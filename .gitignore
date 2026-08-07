@@ -1,0 +1,7 @@
+# Claude Code: Skills, Hooks und lokale Einstellungen
+# Der impeccable-Skill (~3 MB) liegt öffentlich auf GitHub, settings.local.json
+# enthält persönliche Pfade — beides gehört nicht in dieses öffentliche Repo.
+.claude/
+
+# macOS
+.DS_Store
